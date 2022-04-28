@@ -1,0 +1,191 @@
+#overallAppContainer {
+  background-color: black;
+  margin: -8px;
+  padding: 8px;
+}
+
+#moviePageContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  background-color: black;
+  color: white;
+  margin: -8px;
+}
+#moviePageContainer .movieContainer {
+  display: flex;
+  overflow-x: scroll;
+}
+#moviePageContainer .movieContainer .movieItem {
+  margin: 5px 5px;
+  width: 15vw;
+  height: 22.5vw;
+}
+
+#detailContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  background-color: black;
+  margin: -8px;
+  color: white;
+  overflow: hidden;
+}
+#detailContainer #detailHeader {
+  display: flex;
+  z-index: 1;
+  position: relative;
+  padding: 10px 5vw;
+  flex-direction: column;
+}
+#detailContainer #detailHeader #secondaryContainer {
+  display: flex;
+}
+#detailContainer #detailHeader #backgroundImage {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#detailContainer #detailHeader #detailPoster {
+  max-width: 300px;
+  max-height: 450px;
+  width: 30vw;
+  height: 45vw;
+}
+#detailContainer #detailHeader #movieDetailContainer {
+  padding: 0px 2vw;
+  width: 100%;
+  height: auto;
+}
+#detailContainer #detailHeader #movieDetailContainer .movieDetailItem {
+  margin-bottom: 10px;
+  line-height: 30px;
+}
+#detailContainer #detailHeader #movieDetailContainer #detailTitle,
+#detailContainer #detailHeader #movieDetailContainer #detailReleaseYear {
+  font-weight: 700;
+  font-size: xx-large;
+}
+#detailContainer #bodyContainer {
+  padding: 40px 5vw;
+  margin: -8px;
+}
+#detailContainer #bodyContainer #castList,
+#detailContainer #bodyContainer #crewList,
+#detailContainer #bodyContainer #recommendationList {
+  display: flex;
+  margin: 10px auto;
+  overflow-x: auto;
+}
+
+#profileContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  width: 100px;
+  margin: 10px;
+}
+#profileContainer #profileHeadshot {
+  display: flex;
+  height: auto;
+  border-radius: 40px;
+  overflow: hidden;
+  justify-content: center;
+}
+#profileContainer #profileHeadshot #profileBlank {
+  height: 150px;
+  background-color: white;
+}
+#profileContainer #profileHeadshot .headshot {
+  display: flex;
+  width: 110%;
+}
+#profileContainer #profileName,
+#profileContainer #profileRole {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#moviePosterContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  width: 200px;
+  margin: 10px;
+}
+#moviePosterContainer #moviePoster {
+  display: flex;
+  height: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  justify-content: center;
+}
+#moviePosterContainer #moviePoster #blankPoster {
+  height: 300px;
+  background-color: white;
+}
+#moviePosterContainer #moviePoster .poster {
+  display: flex;
+  width: 110%;
+}
+#moviePosterContainer #profileName,
+#moviePosterContainer #profileRole {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#navbarContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  position: sticky;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 5vw;
+  margin: 0px;
+  z-index: 1;
+  color: white;
+  height: 60px;
+}
+#navbarContainer #homeButton {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  font-size: x-large;
+}
+#navbarContainer a {
+  color: white;
+  width: auto;
+}
+#navbarContainer a .MuiSvgIcon-root {
+  height: 60px;
+  width: 60px;
+  opacity: 0.8;
+}
+#navbarContainer #homeButton,
+#navbarContainer #searchBar {
+  color: white;
+}
+
+/*# sourceMappingURL=styles.css.map */

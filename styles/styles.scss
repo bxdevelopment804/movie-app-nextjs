@@ -1,0 +1,270 @@
+@mixin standardFormatting {
+	// display: flex;
+	position: relative;
+	align-items: center;
+	// justify-content: center;
+	box-sizing: border-box;
+	margin: 0px auto;
+}
+
+//Index.js
+#overallAppContainer {
+	background-color: black;
+	margin: -8px;
+	padding: 8px;
+}
+
+//Movies.js
+#moviePageContainer {
+	@include standardFormatting;
+	background-color: black;
+	color: white;
+	margin: -8px;
+
+	.movieContainer {
+		// background-color: black;
+		// color: white;
+		display: flex;
+		overflow-x: scroll;
+
+		.movieItem {
+			margin: 5px 5px;
+			width: 15vw;
+			height: calc(1.5 * 15vw);
+		}
+	}
+}
+
+//{TmdbMoviePopular.tmdbId}.js
+#detailContainer {
+	@include standardFormatting;
+	background-color: black;
+	margin: -8px;
+	// padding: 40px 5vw;
+	color: white;
+	overflow: hidden;
+	#detailHeader {
+		display: flex;
+		// border: solid green;
+		// align-items: flex-start;
+		// border: solid red;
+		// background-size: cover;
+		// background-repeat: no-repeat;
+		z-index: 1;
+		position: relative;
+		// opacity: 0.4;
+		// background-image: ;
+		// background-color: fade-out($color: #000000, $amount: 0.1);
+		// background-position: ;
+		padding: 10px 5vw;
+		// border: solid green;
+		flex-direction: column;
+		#secondaryContainer {
+			// display: block;
+			// border: solid blue;
+			display: flex;
+			// flex-direction: row;
+		}
+		#backgroundImage {
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			// background: url(test.jpg) center center;
+			opacity: 0.4;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+		#detailPoster {
+			max-width: 300px;
+			max-height: 450px;
+			// height: auto;
+			width: 30vw;
+			height: 45vw;
+		}
+		// This seems to be out of order, but fix this later...
+		#movieDetailContainer {
+			// display: flex;
+			// flex-direction: column;
+			// border: solid red;
+			// margin: auto;
+			padding: 0px 2vw;
+			width: 100%;
+			height: auto;
+			// justify-content: center;
+			// align-items: center;
+			// border: solid red;
+
+			.movieDetailItem {
+				margin-bottom: 10px;
+				line-height: 30px;
+			}
+			#detailTitle,
+			#detailReleaseYear {
+				font-weight: 700;
+				font-size: xx-large;
+			}
+		}
+	}
+	#bodyContainer {
+		padding: 40px 5vw;
+		margin: -8px;
+		// border: solid blue;
+
+		#castList,
+		#crewList,
+		#recommendationList {
+			display: flex;
+			margin: 10px auto;
+			// border: solid red;
+			overflow-x: auto;
+		}
+	}
+}
+
+//Profile.js
+#profileContainer {
+	@include standardFormatting;
+	// display: flex;
+	// border: solid red;
+	width: 100px;
+	margin: 10px;
+
+	#profileHeadshot {
+		display: flex;
+		// width: 100px;
+		// max-width: 100px;
+		height: auto;
+		// border: solid blue;
+		border-radius: 40px;
+		overflow: hidden;
+		justify-content: center;
+
+		#profileBlank {
+			height: 150px;
+			// border: solid green;
+			background-color: white;
+		}
+		.headshot {
+			display: flex;
+			// align-items: center;
+			// justify-content: center;
+			width: 110%;
+			// height: auto;
+		}
+		// #defaultHeadshot {
+		// 	width: 110%;
+		// 	height: 110%;
+		// }
+	}
+
+	#profileName,
+	#profileRole {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		// margin: auto;
+		// border: solid blue;
+		text-align: center;
+	}
+}
+//MovieProfile.js
+#moviePosterContainer {
+	@include standardFormatting;
+	// display: flex;
+	// border: solid red;
+	width: 200px;
+	margin: 10px;
+	// height: 300px;
+
+	#moviePoster {
+		display: flex;
+		// width: 100px;
+		// max-width: 100px;
+		height: auto;
+		// border: solid blue;
+		border-radius: 10px;
+		overflow: hidden;
+		justify-content: center;
+
+		#blankPoster {
+			height: 300px;
+			// border: solid green;
+			background-color: white;
+		}
+		.poster {
+			display: flex;
+			// align-items: center;
+			// justify-content: center;
+			width: 110%;
+			// height: auto;
+		}
+	}
+
+	#profileName,
+	#profileRole {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		// margin: auto;
+		// border: solid blue;
+		text-align: center;
+	}
+}
+
+//NavBar.js
+#navbarContainer {
+	@include standardFormatting();
+	position: sticky;
+	//sticky changes Position from relative and fixed when scrolling.  Can use ::after or something to transition to black background when page scrolls
+	// top: 0px;
+	// left: 0px;
+	display: flex;
+	// display: block;
+	// width: 100vw;
+	width: 100%;
+	// border: solid red;
+	align-items: center;
+	justify-content: space-between;
+	// padding: 10px 5vw;
+	padding: 0px 5vw;
+	margin: 0px;
+	z-index: 1;
+	color: white;
+	height: 60px;
+
+	#homeButton {
+		display: flex;
+		position: relative;
+		// border: solid yellow;
+		align-items: center;
+		justify-content: center;
+		// height: 200%;
+		width: auto;
+		font-size: x-large;
+	}
+
+	a {
+		color: white;
+		// height: 200%;
+		width: auto;
+		// font-size: x-large;
+
+		.MuiSvgIcon-root {
+			height: 60px;
+			width: 60px;
+			opacity: 0.8;
+			// Have to change height and width together to get the icon to resize.
+		}
+	}
+
+	#homeButton,
+	#searchBar {
+		color: white;
+	}
+}
