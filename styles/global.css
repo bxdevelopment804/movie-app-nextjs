@@ -76,6 +76,24 @@
   font-weight: 700;
   font-size: xx-large;
 }
+#detailContainer .modal-video-movie-wrap {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding-bottom: 0% !important;
+  position: fixed !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  left: 0%;
+  top: 0%;
+  box-sizing: border-box;
+}
+#detailContainer iframe {
+  width: 90vw;
+  height: 90vh;
+  z-index: 1.1;
+}
 #detailContainer #bodyContainer {
   padding: 40px 5vw;
   margin: -8px;
@@ -162,7 +180,7 @@
   justify-content: space-between;
   padding: 0px 5vw;
   margin: 0px;
-  z-index: 1;
+  z-index: 0.99;
   color: white;
   height: 60px;
 }

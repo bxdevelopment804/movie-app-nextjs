@@ -16,7 +16,7 @@ const Movies = () => {
 	const [romanticMoviesArray, setRomanticMoviesArray] = useState([]);
 	const [crimeMoviesArray, setCrimeMoviesArray] = useState([]);
 	const [horrorMoviesArray, setHorrorMoviesArray] = useState([]);
-	const [documentaryMoviesArray, setDocumentaryMoviesArray] = useState([]);
+	const [animatedMoviesArray, setAnimatedMoviesArray] = useState([]);
 	// const [tmdbIdArray, setTmdbIdArray] = useState([]);
 
 	async function getMovies() {
@@ -44,9 +44,12 @@ const Movies = () => {
 			'https://api.themoviedb.org/3/discover/movie?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}` +
 				'&language=en-US&sort_by=popularity.desc&page=1&with_genres=27',
+			// 'https://api.themoviedb.org/3/discover/movie?api_key=' +
+			// `${process.env.NEXT_PUBLIC_API_KEY}` +
+			// '&language=en-US&sort_by=popularity.desc&page=1&with_genres=99',
 			'https://api.themoviedb.org/3/discover/movie?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}` +
-				'&language=en-US&sort_by=popularity.desc&page=1&with_genres=99',
+				'&language=en-US&sort_by=popularity.desc&page=1&with_genres=12',
 		];
 		try {
 			Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
@@ -59,7 +62,7 @@ const Movies = () => {
 					{ data: romantic },
 					{ data: crime },
 					{ data: horror },
-					{ data: documentary },
+					{ data: animated },
 				]) => {
 					//TRENDING MOVIE SECTION
 					//The below takes the 15 most popular trending movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
@@ -269,35 +272,35 @@ const Movies = () => {
 					// console.log('Horror Array Below:');
 					// console.log(horrorArrayString);
 
-					//DOCUMENTARY MOVIE SECTION
-					//The below takes the 15 most popular documentary movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
-					let documentaryArray = [];
+					//ANIMATED MOVIE SECTION
+					//The below takes the 15 most popular animated movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
+					let animatedArray = [];
 					for (let i = 0; i < 15; ++i) {
 						if (
-							documentary.results[i].poster_path !== null &&
-							documentaryArray.length < 10 &&
-							documentary.results[i].adult === false
+							animated.results[i].poster_path !== null &&
+							animatedArray.length < 10 &&
+							animated.results[i].adult === false
 						) {
-							let tempDocumentaryObject = {
-								title: documentary.results[i].title,
-								overview: documentary.results[i].overview,
-								popularity: documentary.results[i].popularity,
-								tmdbId: documentary.results[i].id,
-								poster_path: documentary.results[i].poster_path,
-								adult: documentary.results[i].adult,
+							let tempAnimatedObject = {
+								title: animated.results[i].title,
+								overview: animated.results[i].overview,
+								popularity: animated.results[i].popularity,
+								tmdbId: animated.results[i].id,
+								poster_path: animated.results[i].poster_path,
+								adult: animated.results[i].adult,
 							};
-							documentaryArray.push(tempDocumentaryObject);
+							animatedArray.push(tempAnimatedObject);
 						}
 					}
-					setDocumentaryMoviesArray(documentaryArray);
+					setAnimatedMoviesArray(animatedArray);
 
-					// let documentaryArrayString = JSON.stringify(
-					// 	documentaryArray,
+					// let animatedArrayString = JSON.stringify(
+					// 	animatedArray,
 					// 	null,
 					// 	4
 					// );
-					// console.log('Documentary Array Below:');
-					// console.log(documentaryArrayString);
+					// console.log('Animated Array Below:');
+					// console.log(animatedArrayString);
 				}
 			);
 		} catch (error) {
@@ -531,9 +534,9 @@ const Movies = () => {
 				})}
 			</div>
 
-			<h2>Documentaries</h2>
-			<div id='documentaryMovieContainer' className='movieContainer'>
-				{documentaryMoviesArray.map((movie) => {
+			<h2>Animated</h2>
+			<div id='animatedMovieContainer' className='movieContainer'>
+				{animatedMoviesArray.map((movie) => {
 					return (
 						<div key={movie.tmdbId}>
 							<Link

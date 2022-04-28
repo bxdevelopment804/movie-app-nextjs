@@ -5,7 +5,7 @@ import NavBar from '../../components/Navbar';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 // import { ReactDOM } from 'react';
-// import Modal from 'react-modal';
+import Modal from 'react-modal';
 // import ModalVideo from 'react-modal-video';
 // import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 // import '../../node_modules/react-modal-video/scss/modal-video.scss';
@@ -45,6 +45,21 @@ export default function IndividualMovie() {
 	var tempCastArray = [];
 	var tempCrewArray = [];
 	var recommendationArray = [];
+
+	const customStyles = {
+		content: {
+			top: '50%',
+			left: '50%',
+			right: 'auto',
+			bottom: 'auto',
+			marginRight: '-50%',
+			transform: 'translate(-50%, -50%)',
+		},
+	};
+
+	Modal.setAppElement('#__next');
+
+	let subtitle;
 
 	async function getCastInfo() {
 		try {
@@ -335,8 +350,6 @@ export default function IndividualMovie() {
 	//Opens modal to add a city.
 	function openTrailerModal() {
 		setTrailerModalIsOpen(true);
-
-		//If the user starts to add a city after just adding a new one, but clicks out of the modal, the above line prevents the first city from being added again.
 	}
 
 	// function afterOpenTrailerModal() {
@@ -372,7 +385,7 @@ export default function IndividualMovie() {
 							style={{ backgroundImage: `url(${movieInfo.backdrop})` }}
 						></div>
 						<img
-							// id='detailPoster'
+							id='detailPoster'
 							// src={
 							// 	'https://image.tmdb.org/t/p/w500/' + location.state.poster_path
 							// }
@@ -414,6 +427,14 @@ export default function IndividualMovie() {
 								videoId={movieInfo.trailer}
 								onClose={closeTrailerModal}
 							/>
+							{/* <Modal
+								channel='youtube'
+								autoplay
+								isOpen={trailerModalIsOpen}
+								videoId={movieInfo.trailer}
+								style={customStyles}
+								onClose={closeTrailerModal}
+							/> */}
 
 							<div id='movieDescription' className='movieDetailItem'>
 								{movieInfo.overview}

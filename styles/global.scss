@@ -35,7 +35,7 @@
 	}
 }
 
-//{TmdbMoviePopular.tmdbId}.js
+//{id}.js
 #detailContainer {
 	@include standardFormatting;
 	background-color: black;
@@ -111,6 +111,28 @@
 			}
 		}
 	}
+
+	.modal-video-movie-wrap {
+		// border: solid red !important;
+		background-color: rgba(256, 256, 256, 0.6);
+		padding-bottom: 0% !important;
+		position: fixed !important;
+		display: flex;
+		align-items: center;
+		// align-self: flex-start;
+		justify-content: center;
+		width: 100vw;
+		height: 100vh;
+		left: 0%;
+		top: 0%;
+		box-sizing: border-box;
+	}
+	iframe {
+		width: 90vw;
+		height: 90vh;
+		z-index: 1.1;
+	}
+
 	#bodyContainer {
 		padding: 40px 5vw;
 		margin: -8px;
@@ -234,7 +256,7 @@
 	// padding: 10px 5vw;
 	padding: 0px 5vw;
 	margin: 0px;
-	z-index: 1;
+	z-index: 0.99;
 	color: white;
 	height: 60px;
 
