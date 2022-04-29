@@ -88,9 +88,9 @@ const Movies = () => {
 					// var highestId = hero.id;
 					var randomId = Math.floor(Math.random() * 20);
 					// console.log(randomId);
-					// console.log(hero);
+					console.log(hero);
 
-					// console.log('Testing: ' + hero.results[randomId].title);
+					console.log('Testing: ' + hero.results[randomId].title);
 
 					let heroArray = [];
 					if (
@@ -387,28 +387,32 @@ const Movies = () => {
 					// style={{ backgroundImage: `url(${heroMoviesObject.poster_path})` }}
 				></div>
 
-				<NavBar />
-				<div id='heroDetailContainer'>
-					<div id='heroTitle' className='heroDetailItem'>
-						{heroMoviesObject.title}
-					</div>
-					<button
-						id='heroDetailsButton'
-						className='heroDetailItem'
-						onClick={() =>
-							router.push({
-								pathname: '/movies/[id]',
-								query: { id: heroMoviesObject.tmdbId },
-							})
-						}
-					>
-						Details
-					</button>
+				{/* TEMPORARILY HIDING NAVBAR UNTIL SEARCH FUNCTION IS UP AND RUNNING */}
+				{/* <NavBar /> */}
+				<div id='alignmentContainer'>
+					<div id='heroDetailContainer'>
+						<div id='heroTitle' className='heroDetailItem'>
+							{heroMoviesObject.title}
+						</div>
+						<button
+							id='heroDetailsButton'
+							className='heroDetailItem'
+							onClick={() =>
+								router.push({
+									pathname: '/movies/[id]',
+									query: { id: heroMoviesObject.tmdbId },
+								})
+							}
+						>
+							Details
+						</button>
 
-					<div id='heroDescription' className='heroDetailItem'>
-						{heroMoviesObject.overview}
+						<div id='heroDescription' className='heroDetailItem'>
+							{heroMoviesObject.overview}
+						</div>
 					</div>
 				</div>
+
 				<div id='gradientBox'></div>
 			</div>
 

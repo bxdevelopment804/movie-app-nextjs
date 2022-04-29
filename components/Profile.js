@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import defaultHeadshot from '../images/defaultHeadshot.svg';
 
 const Profile = (props) => {
@@ -7,7 +8,12 @@ const Profile = (props) => {
 			<div id='profileHeadshot'>
 				{props.photo === 'No Photo Found' && (
 					<div id='profileBlank' className='headshot'>
-						<img
+						{/* <img
+							id='defaultHeadshot'
+							src={defaultHeadshot}
+							alt='headshot placeholder'
+						/> */}
+						<Image
 							id='defaultHeadshot'
 							src={defaultHeadshot}
 							alt='headshot placeholder'

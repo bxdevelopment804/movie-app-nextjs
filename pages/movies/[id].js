@@ -279,8 +279,11 @@ export default function IndividualMovie() {
 				releaseYear: releaseYear,
 				genres: genres,
 				trailer: officialTrailer,
+				// backdrop:
+				// 	'https://image.tmdb.org/t/p/w500/' + movieResponse.data.backdrop_path,
 				backdrop:
-					'https://image.tmdb.org/t/p/w500/' + movieResponse.data.backdrop_path,
+					'https://image.tmdb.org/t/p/original/' +
+					movieResponse.data.backdrop_path,
 			};
 			setMovieInfo(tempMovieObject);
 
@@ -373,7 +376,8 @@ export default function IndividualMovie() {
 					id='detailHeader'
 					// style={{ 'background-image': `url(${movieInfo.backdrop})` }}
 				>
-					<NavBar />
+					{/* TEMPORARILY HIDING NAVBAR UNTIL SEARCH FUNCTION IS UP AND RUNNING */}
+					{/* <NavBar /> */}
 
 					<div id='secondaryContainer'>
 						<div
