@@ -137,6 +137,7 @@ $gradientBoxHeight: 80px;
 	// padding: 40px 5vw;
 	color: white;
 	overflow: hidden;
+	// padding-top: 2vh;
 	#detailHeader {
 		display: flex;
 		// border: solid green;
@@ -400,6 +401,12 @@ $gradientBoxHeight: 80px;
 		border: solid white;
 		width: 40vw;
 		height: calc(1.5 * 40vw);
+	}
+
+	//[id].js
+	#detailPoster,
+	#detailTitle {
+		padding-top: 20px;
 	}
 }
 

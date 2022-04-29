@@ -274,6 +274,11 @@
     width: 40vw;
     height: 60vw;
   }
+
+  #detailPoster,
+#detailTitle {
+    padding-top: 20px;
+  }
 }
 
 /*# sourceMappingURL=global.css.map */
