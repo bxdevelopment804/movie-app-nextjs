@@ -428,6 +428,7 @@ export default function IndividualMovie() {
 				</header>
 
 				<section id='bodyContainer'>
+					<h2 className='castAndCrewHeader'>Cast</h2>
 					<span id='castList'>
 						{castList.map((castMember, index) => {
 							return (
@@ -437,6 +438,7 @@ export default function IndividualMovie() {
 							);
 						})}
 					</span>
+					<h2 className='castAndCrewHeader'>Crew</h2>
 					<span id='crewList'>
 						{crewList.map((crewMember, index) => {
 							return (
