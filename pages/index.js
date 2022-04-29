@@ -15,7 +15,7 @@ export default function Home() {
 			{/* <Head>
 				<title>{siteTitle}</title>
 			</Head> */}
-			<Navbar />
+			{/* <Navbar /> */}
 			<Movies />
 		</div>
 		// </TmdbIdProvider>

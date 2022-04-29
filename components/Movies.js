@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import NavBar from './Navbar';
+//TESTING
+
 import Link from 'next/link';
 
 const axios = require('axios');
@@ -8,6 +12,10 @@ const Movies = () => {
 		getMovies();
 	}, []);
 
+	// const [randomHeroMovieId, setRandomHeroMovieId] = useState(
+	// 	Math.floor(Math.random() * 968820) + 1
+	// );
+	const [heroMoviesObject, setHeroMoviesObject] = useState([]);
 	const [trendingMoviesArray, setTrendingMoviesArray] = useState([]);
 	const [popularMoviesArray, setPopularMoviesArray] = useState([]);
 	const [topRatedMoviesArray, setTopRatedMoviesArray] = useState([]);
@@ -17,10 +25,20 @@ const Movies = () => {
 	const [crimeMoviesArray, setCrimeMoviesArray] = useState([]);
 	const [horrorMoviesArray, setHorrorMoviesArray] = useState([]);
 	const [animatedMoviesArray, setAnimatedMoviesArray] = useState([]);
-	// const [tmdbIdArray, setTmdbIdArray] = useState([]);
+	const router = useRouter();
 
 	async function getMovies() {
+		// console.log('randomHeroMovieId: ' + randomHeroMovieId);
+
 		let endpoints = [
+			// 'https://api.themoviedb.org/3/movie/' +
+			// 	`${randomHeroMovieId}` +
+			// 	'?api_key=' +
+			// 	`${process.env.NEXT_PUBLIC_API_KEY}` +
+			// 	'&language=en-US',
+			'https://api.themoviedb.org/3/discover/movie?api_key=' +
+				`${process.env.NEXT_PUBLIC_API_KEY}` +
+				'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_cast=true&with_crew=true&with_watch_monetization_types=flatrate',
 			'https://api.themoviedb.org/3/trending/movie/week?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}`,
 			'https://api.themoviedb.org/3/movie/popular?api_key=' +
@@ -54,6 +72,7 @@ const Movies = () => {
 		try {
 			Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
 				([
+					{ data: hero },
 					{ data: trending },
 					{ data: popular },
 					{ data: topRated },
@@ -64,6 +83,57 @@ const Movies = () => {
 					{ data: horror },
 					{ data: animated },
 				]) => {
+					// HERO MOVIE SECTION
+					// The below gets the ID of the latest movie, and generates a random movie for the hero section of the homepage.
+					// var highestId = hero.id;
+					var randomId = Math.floor(Math.random() * 20);
+					// console.log(randomId);
+					// console.log(hero);
+
+					// console.log('Testing: ' + hero.results[randomId].title);
+
+					let heroArray = [];
+					if (
+						hero.results[randomId].poster_path !== null &&
+						hero.results[randomId].adult === false
+					) {
+						var tempHeroObject = {
+							title: hero.results[randomId].title,
+							overview: hero.results[randomId].overview,
+							popularity: hero.results[randomId].popularity,
+							tmdbId: hero.results[randomId].id,
+							poster_path:
+								'https://image.tmdb.org/t/p/w500/' +
+								hero.results[randomId].poster_path,
+							// backdrop:
+							// 	'https://image.tmdb.org/t/p/w500/' +
+							// 	hero.results[randomId].backdrop_path,
+							backdrop:
+								'https://image.tmdb.org/t/p/original/' +
+								hero.results[randomId].backdrop_path,
+							adult: hero.results[randomId].adult,
+						};
+						// heroArray.push(tempHeroObject);
+						setHeroMoviesObject(tempHeroObject);
+					}
+					// else {
+					// 	randomId = Math.floor(Math.random() * 20);
+					// 	let tempHeroObject = {
+					// 		title: hero[randomId].title,
+					// 		overview: hero[randomId].overview,
+					// 		popularity: hero[randomId].popularity,
+					// 		tmdbId: hero[randomId].id,
+					// 		poster_path: hero[randomId].poster_path,
+					// 		adult: hero[randomId].adult,
+					// 	};
+					// 	heroArray.push(tempHeroObject);
+					// }
+					// setHeroMoviesObject(heroArray);
+
+					let heroArrayString = JSON.stringify(heroArray, null, 4);
+					console.log('Hero Array Below:');
+					console.log(heroArrayString);
+
 					//TRENDING MOVIE SECTION
 					//The below takes the 15 most popular trending movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
 					let trendingArray = [];
@@ -310,256 +380,289 @@ const Movies = () => {
 
 	return (
 		<div id='moviePageContainer'>
-			<div id='randomMovieContainer'></div>
-			<h2>Trending Movies</h2>
-			<div id='trendingMovieContainer' className='movieContainer'>
-				{trendingMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
-									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
+			<div id='heroMovieContainer'>
+				<div
+					id='heroBackgroundImage'
+					style={{ backgroundImage: `url(${heroMoviesObject.backdrop})` }}
+					// style={{ backgroundImage: `url(${heroMoviesObject.poster_path})` }}
+				></div>
+
+				<NavBar />
+				<div id='heroDetailContainer'>
+					<div id='heroTitle' className='heroDetailItem'>
+						{heroMoviesObject.title}
+					</div>
+					<button
+						id='heroDetailsButton'
+						className='heroDetailItem'
+						onClick={() =>
+							router.push({
+								pathname: '/movies/[id]',
+								query: { id: heroMoviesObject.tmdbId },
+							})
+						}
+					>
+						Details
+					</button>
+
+					<div id='heroDescription' className='heroDetailItem'>
+						{heroMoviesObject.overview}
+					</div>
+				</div>
+				<div id='gradientBox'></div>
 			</div>
 
-			<h2>Popular Movies</h2>
-			<div id='popularMovieContainer' className='movieContainer'>
-				{popularMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+			<div id='generalMovieContainer'>
+				<h2>Trending Movies</h2>
+				<div id='trendingMovieContainer' className='movieContainer'>
+					{trendingMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 
-			<h2>Top Rated Movies</h2>
-			<div id='topRatedMovieContainer' className='movieContainer'>
-				{topRatedMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+				<h2>Popular Movies</h2>
+				<div id='popularMovieContainer' className='movieContainer'>
+					{popularMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 
-			<h2>Comedy Movies</h2>
-			<div id='comedyMovieContainer' className='movieContainer'>
-				{comedyMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+				<h2>Top Rated Movies</h2>
+				<div id='topRatedMovieContainer' className='movieContainer'>
+					{topRatedMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 
-			<h2>Action Movies</h2>
-			<div id='actionMovieContainer' className='movieContainer'>
-				{actionMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+				<h2>Comedy Movies</h2>
+				<div id='comedyMovieContainer' className='movieContainer'>
+					{comedyMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 
-			<h2>Romantic Movies</h2>
-			<div id='romanticMovieContainer' className='movieContainer'>
-				{romanticMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+				<h2>Action Movies</h2>
+				<div id='actionMovieContainer' className='movieContainer'>
+					{actionMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 
-			<h2>Crime Movies</h2>
-			<div id='crimeMovieContainer' className='movieContainer'>
-				{crimeMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+				<h2>Romantic Movies</h2>
+				<div id='romanticMovieContainer' className='movieContainer'>
+					{romanticMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
-			<h2>Horror Movies</h2>
-			<div id='horrorMovieContainer' className='movieContainer'>
-				{horrorMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
-									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
-			</div>
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 
-			<h2>Animated</h2>
-			<div id='animatedMovieContainer' className='movieContainer'>
-				{animatedMoviesArray.map((movie) => {
-					return (
-						<div key={movie.tmdbId}>
-							<Link
-								key={movie.tmdbId}
-								href={{
-									pathname: 'movies/[id]',
-									query: { id: `${movie.tmdbId}` },
-								}}
-								state={{
-									tmdbId: `${movie.tmdbId}`,
-									poster_path: `${movie.poster_path}`,
-								}}
-							>
-								<img
-									src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
-									alt=''
-									className='movieItem'
+				<h2>Crime Movies</h2>
+				<div id='crimeMovieContainer' className='movieContainer'>
+					{crimeMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
 									key={movie.tmdbId}
-								/>
-							</Link>
-						</div>
-					);
-				})}
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
+				<h2>Horror Movies</h2>
+				<div id='horrorMovieContainer' className='movieContainer'>
+					{horrorMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
+									key={movie.tmdbId}
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
+
+				<h2>Animated</h2>
+				<div id='animatedMovieContainer' className='movieContainer'>
+					{animatedMoviesArray.map((movie) => {
+						return (
+							<div key={movie.tmdbId}>
+								<Link
+									key={movie.tmdbId}
+									href={{
+										pathname: 'movies/[id]',
+										query: { id: `${movie.tmdbId}` },
+									}}
+									state={{
+										tmdbId: `${movie.tmdbId}`,
+										poster_path: `${movie.poster_path}`,
+									}}
+								>
+									<img
+										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
+										alt=''
+										className='movieItem'
+										key={movie.tmdbId}
+									/>
+								</Link>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 		</div>
 	);

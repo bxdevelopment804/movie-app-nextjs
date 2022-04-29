@@ -46,20 +46,20 @@ export default function IndividualMovie() {
 	var tempCrewArray = [];
 	var recommendationArray = [];
 
-	const customStyles = {
-		content: {
-			top: '50%',
-			left: '50%',
-			right: 'auto',
-			bottom: 'auto',
-			marginRight: '-50%',
-			transform: 'translate(-50%, -50%)',
-		},
-	};
+	// const customStyles = {
+	// 	content: {
+	// 		top: '50%',
+	// 		left: '50%',
+	// 		right: 'auto',
+	// 		bottom: 'auto',
+	// 		marginRight: '-50%',
+	// 		transform: 'translate(-50%, -50%)',
+	// 	},
+	// };
 
 	Modal.setAppElement('#__next');
 
-	let subtitle;
+	// let subtitle;
 
 	async function getCastInfo() {
 		try {
@@ -360,11 +360,11 @@ export default function IndividualMovie() {
 		setTrailerModalIsOpen(false);
 	}
 
-	function updateTmdbId(id) {
-		setTmdbId(id);
-		// router.query.id = id;  //This line show the right page, but does not update the URL, nor does it stay after a refresh.
-		console.log('Updated TMDB ID: ' + id);
-	}
+	// function updateTmdbId(id) {
+	// 	setTmdbId(id);
+	// router.query.id = id;  //This line show the right page, but does not update the URL, nor does it stay after a refresh.
+	// 	console.log('Updated TMDB ID: ' + id);
+	// }
 
 	return (
 		<>
@@ -374,25 +374,13 @@ export default function IndividualMovie() {
 					// style={{ 'background-image': `url(${movieInfo.backdrop})` }}
 				>
 					<NavBar />
-					{/* <h2>Number Context: {number}</h2>
-					<h2>Router ID: {router.query.id}</h2> */}
-					{/* <h2>tmdbId: {tmdbId}</h2> */}
 
 					<div id='secondaryContainer'>
 						<div
 							id='backgroundImage'
-							// style={{ 'background-image': `url(${movieInfo.backdrop})` }}
 							style={{ backgroundImage: `url(${movieInfo.backdrop})` }}
 						></div>
-						<img
-							id='detailPoster'
-							// src={
-							// 	'https://image.tmdb.org/t/p/w500/' + location.state.poster_path
-							// }
-							src={currentPosterPath}
-							// src={neededPosterPath}
-							alt='movie poster'
-						/>
+						<img id='detailPoster' src={currentPosterPath} alt='movie poster' />
 						<div id='movieDetailContainer'>
 							<div id='detailTitle' className='movieDetailItem'>
 								{movieInfo.title}
@@ -427,14 +415,6 @@ export default function IndividualMovie() {
 								videoId={movieInfo.trailer}
 								onClose={closeTrailerModal}
 							/>
-							{/* <Modal
-								channel='youtube'
-								autoplay
-								isOpen={trailerModalIsOpen}
-								videoId={movieInfo.trailer}
-								style={customStyles}
-								onClose={closeTrailerModal}
-							/> */}
 
 							<div id='movieDescription' className='movieDetailItem'>
 								{movieInfo.overview}
