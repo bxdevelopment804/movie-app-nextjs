@@ -252,6 +252,7 @@
 #navbarContainer a {
   color: white;
   width: auto;
+  text-decoration-line: none;
 }
 #navbarContainer a .MuiSvgIcon-root {
   height: 60px;
@@ -261,6 +262,25 @@
 #navbarContainer #homeButton,
 #navbarContainer #searchBar {
   color: white;
+}
+
+#searchResultsPageContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  background-color: black;
+  margin: -8px;
+  height: 100vh;
+}
+#searchResultsPageContainer #searchResultsContainer {
+  display: flex;
+  width: 100vw;
+  overflow-x: scroll;
+}
+#searchResultsPageContainer .searchResult {
+  width: 15vw;
+  margin: 5px;
 }
 
 @media (max-width: 480px) {
@@ -278,6 +298,22 @@
   #detailPoster,
 #detailTitle {
     padding-top: 20px;
+  }
+
+  #searchResultsPageContainer {
+    height: auto;
+    min-height: 100vh;
+  }
+  #searchResultsPageContainer #searchResultsContainer {
+    flex-direction: column;
+    overflow-y: scroll;
+    align-items: center;
+    justify-content: center;
+  }
+  #searchResultsPageContainer .searchResult {
+    width: 50vw !important;
+    height: auto;
+    margin: 5px;
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import NavBar from './Navbar';
 import { useRouter } from 'next/router';
 const axios = require('axios');
 
@@ -26,7 +27,8 @@ const Search = () => {
 
 	return (
 		<div>
-			<h2>Search for Recipes and Articles Below:</h2>
+			<NavBar />
+			<h2>Search Results Below:</h2>
 			<form id='inputFieldForm'>
 				<label>
 					<input

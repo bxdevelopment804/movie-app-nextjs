@@ -8,11 +8,6 @@ const Profile = (props) => {
 			<div id='profileHeadshot'>
 				{props.photo === 'No Photo Found' && (
 					<div id='profileBlank' className='headshot'>
-						{/* <img
-							id='defaultHeadshot'
-							src={defaultHeadshot}
-							alt='headshot placeholder'
-						/> */}
 						<Image
 							id='defaultHeadshot'
 							src={defaultHeadshot}

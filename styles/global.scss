@@ -374,6 +374,7 @@ $gradientBoxHeight: 80px;
 		// height: 200%;
 		width: auto;
 		// font-size: x-large;
+		text-decoration-line: none;
 
 		.MuiSvgIcon-root {
 			height: 60px;
@@ -386,6 +387,26 @@ $gradientBoxHeight: 80px;
 	#homeButton,
 	#searchBar {
 		color: white;
+	}
+}
+
+//SearchResults.js
+#searchResultsPageContainer {
+	@include standardFormatting();
+
+	background-color: black;
+	margin: -8px;
+	height: 100vh;
+
+	#searchResultsContainer {
+		display: flex;
+		width: 100vw;
+		overflow-x: scroll;
+	}
+	.searchResult {
+		width: 15vw;
+		margin: 5px;
+		// border: solid white;
 	}
 }
 
@@ -407,6 +428,28 @@ $gradientBoxHeight: 80px;
 	#detailPoster,
 	#detailTitle {
 		padding-top: 20px;
+	}
+
+	//SearchResults.js
+	#searchResultsPageContainer {
+		height: auto;
+		min-height: 100vh;
+
+		#searchResultsContainer {
+			// display: flex;
+			// width: 100vw;
+			// overflow-x: scroll;
+			flex-direction: column;
+			overflow-y: scroll;
+			align-items: center;
+			justify-content: center;
+		}
+		.searchResult {
+			width: 50vw !important;
+			height: auto;
+			margin: 5px;
+			// border: solid white;
+		}
 	}
 }
 

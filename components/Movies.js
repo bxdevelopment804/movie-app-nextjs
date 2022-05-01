@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NavBar from './Navbar';
-//TESTING
 
 import Link from 'next/link';
 
@@ -388,7 +387,7 @@ const Movies = () => {
 				></div>
 
 				{/* TEMPORARILY HIDING NAVBAR UNTIL SEARCH FUNCTION IS UP AND RUNNING */}
-				{/* <NavBar /> */}
+				<NavBar />
 				<div id='alignmentContainer'>
 					<div id='heroDetailContainer'>
 						<div id='heroTitle' className='heroDetailItem'>
@@ -400,7 +399,7 @@ const Movies = () => {
 							onClick={() =>
 								router.push({
 									pathname: '/movies/[id]',
-									query: { id: heroMoviesObject.tmdbId },
+									// query: { id: heroMoviesObject.tmdbId },
 								})
 							}
 						>
