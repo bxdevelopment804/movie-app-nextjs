@@ -56,7 +56,7 @@ const NavBar = () => {
 		<div id='navbarContainer'>
 			<Link href='/' id='homeButton'>
 				{/* <LocalMoviesIcon /> */}
-				HOME
+				<h2>HOME</h2>
 			</Link>
 			<section id='searchBar'>
 				{/* <form onSubmit={handleSubmit}> */}

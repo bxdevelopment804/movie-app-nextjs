@@ -399,7 +399,7 @@ const Movies = () => {
 							onClick={() =>
 								router.push({
 									pathname: '/movies/[id]',
-									// query: { id: heroMoviesObject.tmdbId },
+									query: { id: heroMoviesObject.tmdbId },
 								})
 							}
 						>

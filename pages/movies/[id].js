@@ -377,7 +377,7 @@ export default function IndividualMovie() {
 					// style={{ 'background-image': `url(${movieInfo.backdrop})` }}
 				>
 					{/* TEMPORARILY HIDING NAVBAR UNTIL SEARCH FUNCTION IS UP AND RUNNING */}
-					{/* <NavBar /> */}
+					<NavBar />
 
 					<div id='secondaryContainer'>
 						<div
