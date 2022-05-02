@@ -123,7 +123,7 @@ $gradientBoxHeight: 80px;
 		display: flex;
 		z-index: 1;
 		position: relative;
-		padding: 10px 5vw;
+		padding: 0px 2vw;
 		flex-direction: column;
 
 		#secondaryContainer {
@@ -364,7 +364,7 @@ $gradientBoxHeight: 80px;
 	@include standardFormatting();
 	display: flex;
 	flex-direction: column;
-	margin: auto;
+	margin: 0px auto 10px;
 	color: white;
 
 	#credits {
