@@ -1,7 +1,7 @@
 import React from 'react';
-// import '../styles/styles.css';
 
 const MovieProfile = (props) => {
+	//Renders the movie icons for [id].js
 	return (
 		<div id='moviePosterContainer'>
 			<div id='moviePoster'>
@@ -19,9 +19,6 @@ const MovieProfile = (props) => {
 					/>
 				)}
 			</div>
-
-			{/* <h3 id='profileName'>{props.name}</h3>
-			<p id='profileRole'>{props.role}</p> */}
 		</div>
 	);
 };

@@ -19,6 +19,9 @@
   align-items: center;
   z-index: 1;
 }
+#moviePageContainer #heroMovieContainer #heroNavbarContainer {
+  padding: 0px 2vw;
+}
 #moviePageContainer #heroMovieContainer #heroBackgroundImage {
   position: absolute;
   z-index: -1;
@@ -56,6 +59,9 @@
   font-weight: 700;
   font-size: xxx-large;
 }
+#moviePageContainer #heroMovieContainer #alignmentContainer #heroDetailContainer #heroDetailsButton {
+  cursor: pointer;
+}
 #moviePageContainer #heroMovieContainer #gradientBox {
   display: flex;
   position: absolute;
@@ -76,6 +82,7 @@
   margin: 5px 5px;
   width: 15vw;
   height: 22.5vw;
+  cursor: pointer;
 }
 
 #detailContainer {
@@ -98,7 +105,7 @@
 #detailContainer #detailHeader #secondaryContainer {
   display: flex;
 }
-#detailContainer #detailHeader #backgroundImage {
+#detailContainer #detailHeader #secondaryContainer #backgroundImage {
   position: absolute;
   z-index: -1;
   top: 0%;
@@ -112,25 +119,36 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-#detailContainer #detailHeader #detailPoster {
+#detailContainer #detailHeader #secondaryContainer #detailPoster {
   max-width: 300px;
   max-height: 450px;
   width: 30vw;
   height: 45vw;
 }
-#detailContainer #detailHeader #movieDetailContainer {
+#detailContainer #detailHeader #secondaryContainer #movieDetailContainer {
   padding: 0px 2vw;
   width: 100%;
   height: auto;
 }
-#detailContainer #detailHeader #movieDetailContainer .movieDetailItem {
+#detailContainer #detailHeader #secondaryContainer #movieDetailContainer .movieDetailItem {
   margin-bottom: 10px;
   line-height: 30px;
 }
-#detailContainer #detailHeader #movieDetailContainer #detailTitle,
-#detailContainer #detailHeader #movieDetailContainer #detailReleaseYear {
+#detailContainer #detailHeader #secondaryContainer #movieDetailContainer #detailTitle,
+#detailContainer #detailHeader #secondaryContainer #movieDetailContainer #detailReleaseYear {
   font-weight: 700;
   font-size: xx-large;
+}
+#detailContainer #detailHeader #gradientBox {
+  display: flex;
+  position: absolute;
+  align-self: bottom;
+  height: 80px;
+  width: 100%;
+  bottom: 0px;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), black);
+  margin: 0px -5vw;
+  z-index: -1;
 }
 #detailContainer .modal-video-movie-wrap {
   background-color: rgba(255, 255, 255, 0.6);
@@ -215,6 +233,7 @@
 #moviePosterContainer #moviePoster .poster {
   display: flex;
   width: 110%;
+  cursor: pointer;
 }
 #moviePosterContainer #profileName,
 #moviePosterContainer #profileRole {
@@ -234,7 +253,6 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 5vw;
   margin: 0px;
   z-index: -1.1;
   color: white;
@@ -272,15 +290,48 @@
   background-color: black;
   margin: -8px;
   height: 100vh;
+  padding: 0px 2vw;
+}
+#searchResultsPageContainer #searchResultsHeader {
+  color: white;
+}
+#searchResultsPageContainer #noResultsNotice {
+  color: white;
 }
 #searchResultsPageContainer #searchResultsContainer {
   display: flex;
   width: 100vw;
   overflow-x: scroll;
 }
+#searchResultsPageContainer #searchResultsContainer #testSearchResults {
+  color: white;
+}
 #searchResultsPageContainer .searchResult {
   width: 15vw;
   margin: 5px;
+}
+
+#footerContainer {
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  color: white;
+}
+#footerContainer #credits {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#footerContainer #credits #logoContainer {
+  display: flex;
+  height: 40px !important;
+  width: 40px !important;
+  margin: 0px 5px;
+  align-items: center;
 }
 
 @media (max-width: 480px) {

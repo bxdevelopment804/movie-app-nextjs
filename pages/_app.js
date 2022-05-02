@@ -1,5 +1,5 @@
-import '../styles/global.css';
 import SearchResultsProvider from '../context/SearchResultsProvider';
+import '../styles/global.css';
 
 export default function App({ Component, pageProps }) {
 	return (

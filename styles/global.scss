@@ -1,10 +1,8 @@
 $gradientBoxHeight: 80px;
 
 @mixin standardFormatting {
-	// display: flex;
 	position: relative;
 	align-items: center;
-	// justify-content: center;
 	box-sizing: border-box;
 	margin: 0px auto;
 }
@@ -19,24 +17,19 @@ $gradientBoxHeight: 80px;
 //Movies.js
 #moviePageContainer {
 	@include standardFormatting;
-	// background-color: black;
 	color: white;
 	margin: -8px;
-	// padding: 10px 10px;
 
 	#heroMovieContainer {
 		position: relative;
 		width: 100%;
 		height: 80vh;
-		// background-size: cover;
-		// background-repeat: no-repeat;
-		// display: flex;
 		align-items: center;
-		// position: absolute;
-		// overflow: hidden;
-		// overflow-x: hidden;
 		z-index: 1;
-		// border: solid red;
+
+		#heroNavbarContainer {
+			padding: 0px 2vw;
+		}
 
 		#heroBackgroundImage {
 			position: absolute;
@@ -49,49 +42,40 @@ $gradientBoxHeight: 80px;
 			width: 100%;
 			height: 100%;
 			background-size: cover;
-			// background-size: auto;
 			background-repeat: no-repeat;
 			background-position: center;
-			// border: solid blue;
 		}
+
 		#alignmentContainer {
 			display: flex;
 			align-items: center;
-			// height: calc(100% - $gradientBoxHeight);
 			height: 100%;
-			// border: solid green;
 
 			#heroDetailContainer {
 				position: relative;
 				padding: 10px 2vw;
-				// display: flex;
-				// flex-direction: column;
-				// justify-content: center;
-				// align-items: center;
-				// margin: auto;
-				// padding: 10px 2vw;
-				// height: auto;
-				// height: calc(100% - $gradientBoxHeight);
 				z-index: 1;
-				// border: solid green;
 
 				.heroDetailItem {
 					margin-bottom: 30px;
 				}
+
 				#heroDetailsButton {
 					font-size: large;
 				}
+
 				#heroDescription {
 					line-height: 30px;
 				}
+
 				#heroTitle {
 					font-weight: 700;
 					font-size: xxx-large;
 				}
-				// NEED TO REVISIT THIS ICON, NOT SURE WHY THIS ISN'T WORKING
-				// #heroDetailButton {
-				// 	cursor: pointer;
-				// }
+
+				#heroDetailsButton {
+					cursor: pointer;
+				}
 			}
 		}
 
@@ -99,9 +83,7 @@ $gradientBoxHeight: 80px;
 			display: flex;
 			position: absolute;
 			align-self: bottom;
-			// background-color: white;
 			height: 80px;
-			// height: $gradientBoxHeight;
 			width: 100%;
 			bottom: 0px;
 			background-image: linear-gradient(
@@ -109,7 +91,6 @@ $gradientBoxHeight: 80px;
 				rgba(255, 255, 255, 0),
 				rgba(0, 0, 0, 1)
 			);
-			// border: solid white;
 		}
 	}
 
@@ -124,6 +105,7 @@ $gradientBoxHeight: 80px;
 				margin: 5px 5px;
 				width: 15vw;
 				height: calc(1.5 * 15vw);
+				cursor: pointer;
 			}
 		}
 	}
@@ -134,88 +116,82 @@ $gradientBoxHeight: 80px;
 	@include standardFormatting;
 	background-color: black;
 	margin: -8px;
-	// padding: 40px 5vw;
 	color: white;
 	overflow: hidden;
-	// padding-top: 2vh;
+
 	#detailHeader {
 		display: flex;
-		// border: solid green;
-		// align-items: flex-start;
-		// border: solid red;
-		// background-size: cover;
-		// background-repeat: no-repeat;
 		z-index: 1;
 		position: relative;
-		// opacity: 0.4;
-		// background-image: ;
-		// background-color: fade-out($color: #000000, $amount: 0.1);
-		// background-position: ;
 		padding: 10px 5vw;
-		// border: solid green;
 		flex-direction: column;
+
 		#secondaryContainer {
-			// display: block;
-			// border: solid blue;
 			display: flex;
-			// flex-direction: row;
+
+			#backgroundImage {
+				position: absolute;
+				z-index: -1;
+				top: 0%;
+				bottom: 0%;
+				left: 0%;
+				right: 0%;
+				opacity: 0.4;
+				width: 100%;
+				height: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+
+			#detailPoster {
+				max-width: 300px;
+				max-height: 450px;
+				width: 30vw;
+				height: 45vw;
+			}
+
+			#movieDetailContainer {
+				padding: 0px 2vw;
+				width: 100%;
+				height: auto;
+
+				.movieDetailItem {
+					margin-bottom: 10px;
+					line-height: 30px;
+				}
+
+				#detailTitle,
+				#detailReleaseYear {
+					font-weight: 700;
+					font-size: xx-large;
+				}
+			}
 		}
-		#backgroundImage {
+
+		#gradientBox {
+			display: flex;
 			position: absolute;
+			align-self: bottom;
+			height: 80px;
+			width: 100%;
+			bottom: 0px;
+			background-image: linear-gradient(
+				to bottom,
+				rgba(255, 255, 255, 0),
+				rgba(0, 0, 0, 1)
+			);
+			margin: 0px -5vw;
 			z-index: -1;
-			top: 0%;
-			bottom: 0%;
-			left: 0%;
-			right: 0%;
-			// background: url(test.jpg) center center;
-			opacity: 0.4;
-			width: 100%;
-			height: 100%;
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-
-		#detailPoster {
-			max-width: 300px;
-			max-height: 450px;
-			// height: auto;
-			width: 30vw;
-			height: 45vw;
-		}
-		// This seems to be out of order, but fix this later...
-		#movieDetailContainer {
-			// display: flex;
-			// flex-direction: column;
-			// border: solid red;
-			// margin: auto;
-			padding: 0px 2vw;
-			width: 100%;
-			height: auto;
-			// justify-content: center;
-			// align-items: center;
-			// border: solid red;
-
-			.movieDetailItem {
-				margin-bottom: 10px;
-				line-height: 30px;
-			}
-			#detailTitle,
-			#detailReleaseYear {
-				font-weight: 700;
-				font-size: xx-large;
-			}
 		}
 	}
 
 	.modal-video-movie-wrap {
-		// border: solid red !important;
 		background-color: rgba(256, 256, 256, 0.6);
 		padding-bottom: 0% !important;
 		position: fixed !important;
 		display: flex;
 		align-items: center;
-		// align-self: flex-start;
 		justify-content: center;
 		width: 100vw;
 		height: 100vh;
@@ -223,6 +199,7 @@ $gradientBoxHeight: 80px;
 		top: 0%;
 		box-sizing: border-box;
 	}
+
 	iframe {
 		width: 90vw;
 		height: 90vh;
@@ -232,14 +209,12 @@ $gradientBoxHeight: 80px;
 	#bodyContainer {
 		padding: 40px 5vw;
 		margin: -8px;
-		// border: solid blue;
 
 		#castList,
 		#crewList,
 		#recommendationList {
 			display: flex;
 			margin: 10px auto;
-			// border: solid red;
 			overflow-x: auto;
 		}
 	}
@@ -248,37 +223,24 @@ $gradientBoxHeight: 80px;
 //Profile.js
 #profileContainer {
 	@include standardFormatting;
-	// display: flex;
-	// border: solid red;
 	width: 100px;
 	margin: 10px;
 
 	#profileHeadshot {
 		display: flex;
-		// width: 100px;
-		// max-width: 100px;
 		height: auto;
-		// border: solid blue;
 		border-radius: 40px;
 		overflow: hidden;
 		justify-content: center;
 
 		#profileBlank {
 			height: 150px;
-			// border: solid green;
 			background-color: white;
 		}
 		.headshot {
 			display: flex;
-			// align-items: center;
-			// justify-content: center;
 			width: 110%;
-			// height: auto;
 		}
-		// #defaultHeadshot {
-		// 	width: 110%;
-		// 	height: 110%;
-		// }
 	}
 
 	#profileName,
@@ -286,41 +248,31 @@ $gradientBoxHeight: 80px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		// margin: auto;
-		// border: solid blue;
 		text-align: center;
 	}
 }
+
 //MovieProfile.js
 #moviePosterContainer {
 	@include standardFormatting;
-	// display: flex;
-	// border: solid red;
 	width: 200px;
 	margin: 10px;
-	// height: 300px;
 
 	#moviePoster {
 		display: flex;
-		// width: 100px;
-		// max-width: 100px;
 		height: auto;
-		// border: solid blue;
 		border-radius: 10px;
 		overflow: hidden;
 		justify-content: center;
 
 		#blankPoster {
 			height: 300px;
-			// border: solid green;
 			background-color: white;
 		}
 		.poster {
 			display: flex;
-			// align-items: center;
-			// justify-content: center;
 			width: 110%;
-			// height: auto;
+			cursor: pointer;
 		}
 	}
 
@@ -329,8 +281,6 @@ $gradientBoxHeight: 80px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		// margin: auto;
-		// border: solid blue;
 		text-align: center;
 	}
 }
@@ -340,19 +290,11 @@ $gradientBoxHeight: 80px;
 	@include standardFormatting();
 	position: sticky;
 	//sticky changes Position from relative and fixed when scrolling.  Can use ::after or something to transition to black background when page scrolls
-	// top: 0px;
-	// left: 0px;
 	display: flex;
-	// display: block;
-	// width: 100vw;
 	width: 100%;
-	// border: solid red;
 	align-items: center;
 	justify-content: space-between;
-	// padding: 10px 5vw;
-	padding: 0px 5vw;
 	margin: 0px;
-	// z-index: 0.99;
 	z-index: -1.1;
 	color: white;
 	height: 60px;
@@ -360,10 +302,8 @@ $gradientBoxHeight: 80px;
 	#homeButton {
 		display: flex;
 		position: relative;
-		// border: solid yellow;
 		align-items: center;
 		justify-content: center;
-		// height: 200%;
 		width: auto;
 		font-size: x-large;
 		z-index: 0.95;
@@ -371,9 +311,7 @@ $gradientBoxHeight: 80px;
 
 	a {
 		color: white;
-		// height: 200%;
 		width: auto;
-		// font-size: x-large;
 		text-decoration-line: none;
 
 		.MuiSvgIcon-root {
@@ -393,20 +331,54 @@ $gradientBoxHeight: 80px;
 //SearchResults.js
 #searchResultsPageContainer {
 	@include standardFormatting();
-
 	background-color: black;
 	margin: -8px;
 	height: 100vh;
+	padding: 0px 2vw;
+
+	#searchResultsHeader {
+		color: white;
+	}
+
+	#noResultsNotice {
+		color: white;
+	}
 
 	#searchResultsContainer {
 		display: flex;
 		width: 100vw;
 		overflow-x: scroll;
+
+		#testSearchResults {
+			color: white;
+		}
 	}
 	.searchResult {
 		width: 15vw;
 		margin: 5px;
-		// border: solid white;
+	}
+}
+
+//Footer.js
+#footerContainer {
+	@include standardFormatting();
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	color: white;
+
+	#credits {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		#logoContainer {
+			display: flex;
+			height: 40px !important;
+			width: 40px !important;
+			margin: 0px 5px;
+			align-items: center;
+		}
 	}
 }
 
@@ -419,7 +391,6 @@ $gradientBoxHeight: 80px;
 
 	//MovieProfile.js
 	#moviePosterContainer {
-		// border: solid white;
 		width: 40vw;
 		height: calc(1.5 * 40vw);
 	}
@@ -436,9 +407,6 @@ $gradientBoxHeight: 80px;
 		min-height: 100vh;
 
 		#searchResultsContainer {
-			// display: flex;
-			// width: 100vw;
-			// overflow-x: scroll;
 			flex-direction: column;
 			overflow-y: scroll;
 			align-items: center;
@@ -448,7 +416,6 @@ $gradientBoxHeight: 80px;
 			width: 50vw !important;
 			height: auto;
 			margin: 5px;
-			// border: solid white;
 		}
 	}
 }

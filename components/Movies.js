@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NavBar from './Navbar';
+import Footer from './Footer';
 
 import Link from 'next/link';
 
@@ -11,9 +12,6 @@ const Movies = () => {
 		getMovies();
 	}, []);
 
-	// const [randomHeroMovieId, setRandomHeroMovieId] = useState(
-	// 	Math.floor(Math.random() * 968820) + 1
-	// );
 	const [heroMoviesObject, setHeroMoviesObject] = useState([]);
 	const [trendingMoviesArray, setTrendingMoviesArray] = useState([]);
 	const [popularMoviesArray, setPopularMoviesArray] = useState([]);
@@ -27,14 +25,8 @@ const Movies = () => {
 	const router = useRouter();
 
 	async function getMovies() {
-		// console.log('randomHeroMovieId: ' + randomHeroMovieId);
-
+		//Endpoints respectively related to hero section options, followed by Trending, Popular, Top Rated, Comedy, Action, Romantic, Crime, Horror, and Animated categories as shown on the home page.
 		let endpoints = [
-			// 'https://api.themoviedb.org/3/movie/' +
-			// 	`${randomHeroMovieId}` +
-			// 	'?api_key=' +
-			// 	`${process.env.NEXT_PUBLIC_API_KEY}` +
-			// 	'&language=en-US',
 			'https://api.themoviedb.org/3/discover/movie?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}` +
 				'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_cast=true&with_crew=true&with_watch_monetization_types=flatrate',
@@ -61,14 +53,12 @@ const Movies = () => {
 			'https://api.themoviedb.org/3/discover/movie?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}` +
 				'&language=en-US&sort_by=popularity.desc&page=1&with_genres=27',
-			// 'https://api.themoviedb.org/3/discover/movie?api_key=' +
-			// `${process.env.NEXT_PUBLIC_API_KEY}` +
-			// '&language=en-US&sort_by=popularity.desc&page=1&with_genres=99',
 			'https://api.themoviedb.org/3/discover/movie?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}` +
 				'&language=en-US&sort_by=popularity.desc&page=1&with_genres=12',
 		];
 		try {
+			//Simultaneously pull from all endpoints via Axios.  Promise.all used instead of Axios.all as it's currently rumored Axios.all will be deprecated in the near future.
 			Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
 				([
 					{ data: hero },
@@ -84,14 +74,9 @@ const Movies = () => {
 				]) => {
 					// HERO MOVIE SECTION
 					// The below gets the ID of the latest movie, and generates a random movie for the hero section of the homepage.
-					// var highestId = hero.id;
+
 					var randomId = Math.floor(Math.random() * 20);
-					// console.log(randomId);
-					console.log(hero);
 
-					console.log('Testing: ' + hero.results[randomId].title);
-
-					let heroArray = [];
 					if (
 						hero.results[randomId].poster_path !== null &&
 						hero.results[randomId].adult === false
@@ -104,34 +89,14 @@ const Movies = () => {
 							poster_path:
 								'https://image.tmdb.org/t/p/w500/' +
 								hero.results[randomId].poster_path,
-							// backdrop:
-							// 	'https://image.tmdb.org/t/p/w500/' +
-							// 	hero.results[randomId].backdrop_path,
 							backdrop:
 								'https://image.tmdb.org/t/p/original/' +
 								hero.results[randomId].backdrop_path,
 							adult: hero.results[randomId].adult,
 						};
-						// heroArray.push(tempHeroObject);
+
 						setHeroMoviesObject(tempHeroObject);
 					}
-					// else {
-					// 	randomId = Math.floor(Math.random() * 20);
-					// 	let tempHeroObject = {
-					// 		title: hero[randomId].title,
-					// 		overview: hero[randomId].overview,
-					// 		popularity: hero[randomId].popularity,
-					// 		tmdbId: hero[randomId].id,
-					// 		poster_path: hero[randomId].poster_path,
-					// 		adult: hero[randomId].adult,
-					// 	};
-					// 	heroArray.push(tempHeroObject);
-					// }
-					// setHeroMoviesObject(heroArray);
-
-					let heroArrayString = JSON.stringify(heroArray, null, 4);
-					console.log('Hero Array Below:');
-					console.log(heroArrayString);
 
 					//TRENDING MOVIE SECTION
 					//The below takes the 15 most popular trending movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
@@ -155,10 +120,6 @@ const Movies = () => {
 					}
 					setTrendingMoviesArray(trendingArray);
 
-					// let trendingArrayString = JSON.stringify(trendingArray, null, 4);
-					// console.log('Trending Array Below:');
-					// console.log(trendingArrayString);
-
 					//POPULAR MOVIE SECTION
 					//The below takes the 15 most popular movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
 					let popularArray = [];
@@ -180,10 +141,6 @@ const Movies = () => {
 						}
 					}
 					setPopularMoviesArray(popularArray);
-
-					// let popularArrayString = JSON.stringify(popularArray, null, 4);
-					// console.log('Popular Array Below:');
-					// console.log(popularArrayString);
 
 					//TOP RATED MOVIE SECTION
 					//The below takes the 15 top rated movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
@@ -207,10 +164,6 @@ const Movies = () => {
 					}
 					setTopRatedMoviesArray(topRatedArray);
 
-					// let topRatedArrayString = JSON.stringify(topRatedArray, null, 4);
-					// console.log('Top Rated Array Below:');
-					// console.log(topRatedArrayString);
-
 					//COMEDY MOVIE SECTION
 					//The below takes the top 15 comedy movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
 					let comedyArray = [];
@@ -232,10 +185,6 @@ const Movies = () => {
 						}
 					}
 					setComedyMoviesArray(comedyArray);
-
-					// let comedyArrayString = JSON.stringify(comedyArray, null, 4);
-					// console.log('Comedy Array Below:');
-					// console.log(comedyArrayString);
 
 					//ACTION MOVIE SECTION
 					//The below takes the top 15 action movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
@@ -259,10 +208,6 @@ const Movies = () => {
 					}
 					setActionMoviesArray(actionArray);
 
-					// let actionArrayString = JSON.stringify(actionArray, null, 4);
-					// console.log('Action Array Below:');
-					// console.log(actionArrayString);
-
 					//ROMANTIC MOVIE SECTION
 					//The below takes the top 15 romantic movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
 					let romanticArray = [];
@@ -284,10 +229,6 @@ const Movies = () => {
 						}
 					}
 					setRomanticMoviesArray(romanticArray);
-
-					// let romanticArrayString = JSON.stringify(romanticArray, null, 4);
-					// console.log('Romantic Array Below:');
-					// console.log(romanticArrayString);
 
 					//CRIME MOVIE SECTION
 					//The below takes the top 15 crime movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
@@ -311,10 +252,6 @@ const Movies = () => {
 					}
 					setCrimeMoviesArray(crimeArray);
 
-					// let crimeArrayString = JSON.stringify(crimeArray, null, 4);
-					// console.log('Crime Array Below:');
-					// console.log(crimeArrayString);
-
 					//HORROR MOVIE SECTION
 					//The below takes the 15 most popular horror movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
 					let horrorArray = [];
@@ -337,10 +274,6 @@ const Movies = () => {
 					}
 					setHorrorMoviesArray(horrorArray);
 
-					// let horrorArrayString = JSON.stringify(horrorArray, null, 4);
-					// console.log('Horror Array Below:');
-					// console.log(horrorArrayString);
-
 					//ANIMATED MOVIE SECTION
 					//The below takes the 15 most popular animated movies, makes sure at least 10 of them has movie posters, and saves that filtered list of 10.  This helps prevent empty posters showing up on the home page.
 					let animatedArray = [];
@@ -362,14 +295,6 @@ const Movies = () => {
 						}
 					}
 					setAnimatedMoviesArray(animatedArray);
-
-					// let animatedArrayString = JSON.stringify(
-					// 	animatedArray,
-					// 	null,
-					// 	4
-					// );
-					// console.log('Animated Array Below:');
-					// console.log(animatedArrayString);
 				}
 			);
 		} catch (error) {
@@ -380,14 +305,15 @@ const Movies = () => {
 	return (
 		<div id='moviePageContainer'>
 			<div id='heroMovieContainer'>
+				<div id='heroNavbarContainer'>
+					<NavBar />
+				</div>
+
 				<div
 					id='heroBackgroundImage'
 					style={{ backgroundImage: `url(${heroMoviesObject.backdrop})` }}
-					// style={{ backgroundImage: `url(${heroMoviesObject.poster_path})` }}
 				></div>
 
-				{/* TEMPORARILY HIDING NAVBAR UNTIL SEARCH FUNCTION IS UP AND RUNNING */}
-				<NavBar />
 				<div id='alignmentContainer'>
 					<div id='heroDetailContainer'>
 						<div id='heroTitle' className='heroDetailItem'>
@@ -405,14 +331,12 @@ const Movies = () => {
 						>
 							Details
 						</button>
-
 						<div id='heroDescription' className='heroDetailItem'>
 							{heroMoviesObject.overview}
 						</div>
 					</div>
 				</div>
-
-				<div id='gradientBox'></div>
+				<div id='gradientBox' className='gradientBox'></div>
 			</div>
 
 			<div id='generalMovieContainer'>
@@ -426,10 +350,6 @@ const Movies = () => {
 									href={{
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
-									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
 									}}
 								>
 									<img
@@ -455,10 +375,6 @@ const Movies = () => {
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
 									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
-									}}
 								>
 									<img
 										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
@@ -482,10 +398,6 @@ const Movies = () => {
 									href={{
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
-									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
 									}}
 								>
 									<img
@@ -511,10 +423,6 @@ const Movies = () => {
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
 									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
-									}}
 								>
 									<img
 										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
@@ -538,10 +446,6 @@ const Movies = () => {
 									href={{
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
-									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
 									}}
 								>
 									<img
@@ -567,10 +471,6 @@ const Movies = () => {
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
 									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
-									}}
 								>
 									<img
 										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
@@ -595,10 +495,6 @@ const Movies = () => {
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
 									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
-									}}
 								>
 									<img
 										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
@@ -622,10 +518,6 @@ const Movies = () => {
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
 									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
-									}}
 								>
 									<img
 										src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
@@ -639,7 +531,7 @@ const Movies = () => {
 					})}
 				</div>
 
-				<h2>Animated</h2>
+				<h2>Animated Movies</h2>
 				<div id='animatedMovieContainer' className='movieContainer'>
 					{animatedMoviesArray.map((movie) => {
 						return (
@@ -649,10 +541,6 @@ const Movies = () => {
 									href={{
 										pathname: 'movies/[id]',
 										query: { id: `${movie.tmdbId}` },
-									}}
-									state={{
-										tmdbId: `${movie.tmdbId}`,
-										poster_path: `${movie.poster_path}`,
 									}}
 								>
 									<img
@@ -667,6 +555,7 @@ const Movies = () => {
 					})}
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };
