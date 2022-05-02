@@ -32,8 +32,8 @@ const NavBar = () => {
 
 	return (
 		<div id='navbarContainer'>
-			<Link href='/' id='homeButton'>
-				<h2>HOME</h2>
+			<Link href='/'>
+				<h2 id='homeButton'>HOME</h2>
 			</Link>
 			<section id='searchBar'>
 				<label>
