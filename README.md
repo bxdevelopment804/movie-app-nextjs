@@ -23,4 +23,4 @@
 
 4.  **Link**
 
-    - [Movie App](https://movie-app-nextjs-seven.vercel.app/)
+    - [Movie App](https://bxd-movies.vercel.app/)
