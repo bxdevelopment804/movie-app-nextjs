@@ -309,6 +309,21 @@ $gradientBoxHeight: 80px;
 		z-index: 0.95;
 		cursor: pointer;
 	}
+	#searchBar {
+		font-size: x-large;
+		font-weight: 700;
+		display: flex;
+
+		#searchLabel {
+			align-items: center;
+			justify-content: space-between;
+			display: flex;
+
+			#searchInput {
+				margin: 0px 0px 0px 10px;
+			}
+		}
+	}
 
 	a {
 		color: white;

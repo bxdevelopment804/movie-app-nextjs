@@ -177,10 +177,6 @@ export default function IndividualMovie() {
 					movieResponse.data.backdrop_path,
 			};
 			setMovieInfo(tempMovieObject);
-
-			let movieString = JSON.stringify(tempMovieObject, null, 4);
-			console.log('Movie Object Below:');
-			console.log(movieString);
 		} catch (error) {
 			console.error(error);
 		}
