@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
@@ -6,20 +6,25 @@ import Profile from '../../components/Profile';
 import MovieProfile from '../../components/MovieProfile';
 import NavBar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { tmdbIdContext } from '../../context/TMDBIdProvider';
 
 const ModalVideo = dynamic(() => import('react-modal-video'), { ssr: false });
-const axios = require('axios');
-
-export default function IndividualMovie() {
+function IndividualMovie({
+	castInfoSSP,
+	movieInfoSSP,
+	recommendationsSSP,
+	updatedTmdbId,
+}) {
 	const [currentPosterPath, setCurrentPosterPath] = useState('');
 	const router = useRouter();
-	const [tmdbId, setTmdbId] = useState();
+	const [globalTmdbId, setGlobalTmdbId] = useContext(tmdbIdContext);
+	setGlobalTmdbId(updatedTmdbId);
 
 	useEffect(() => {
-		getCastInfo();
-		getMovieInfo();
-		getMovieRecommendations();
-	}, [tmdbId, router.query.id]);
+		getCastInfo(castInfoSSP);
+		getMovieInfo(movieInfoSSP);
+		getMovieRecommendations(recommendationsSSP);
+	}, [globalTmdbId]);
 
 	const [castList, setCastList] = useState([]);
 	const [crewList, setCrewList] = useState([]);
@@ -34,15 +39,10 @@ export default function IndividualMovie() {
 
 	Modal.setAppElement('#__next');
 
-	async function getCastInfo() {
+	function getCastInfo(castInfoSSP) {
 		try {
-			const castResponse = await axios.get(
-				'https://api.themoviedb.org/3/movie/' +
-					router.query.id +
-					'/credits?api_key=' +
-					`${process.env.NEXT_PUBLIC_API_KEY}` +
-					'&language=en-US'
-			);
+			let data = castInfoSSP;
+			const castResponse = { data };
 
 			for (let i = 0; i < 10; i++) {
 				//Limits cast to ten.
@@ -107,15 +107,10 @@ export default function IndividualMovie() {
 		}
 	}
 
-	async function getMovieInfo() {
+	function getMovieInfo(movieInfoSSP) {
 		try {
-			const movieResponse = await axios.get(
-				'https://api.themoviedb.org/3/movie/' +
-					router.query.id +
-					'?api_key=' +
-					`${process.env.NEXT_PUBLIC_API_KEY}` +
-					'&language=en-US&append_to_response=videos'
-			);
+			let data = movieInfoSSP;
+			const movieResponse = { data };
 
 			setCurrentPosterPath(
 				'https://image.tmdb.org/t/p/w500/' + movieResponse.data.poster_path
@@ -182,18 +177,16 @@ export default function IndividualMovie() {
 		}
 	}
 
-	async function getMovieRecommendations() {
+	function getMovieRecommendations(recommendationsSSP) {
 		try {
-			const recommendationResponse = await axios.get(
-				'https://api.themoviedb.org/3/movie/' +
-					router.query.id +
-					'/recommendations?api_key=' +
-					`${process.env.NEXT_PUBLIC_API_KEY}` +
-					'&language=en-US&page=1'
-			);
+			let data = recommendationsSSP;
+			const recommendationResponse = { data };
 
 			for (let i = 0; i < 4; i++) {
-				if (recommendationResponse.data.results[i]) {
+				if (
+					recommendationResponse.data.results[i] &&
+					recommendationResponse.data.results[i].poster_path
+				) {
 					let tempRecommendationObject = {
 						title: recommendationResponse.data.results[i].title,
 						poster:
@@ -202,7 +195,6 @@ export default function IndividualMovie() {
 						tmdbId: recommendationResponse.data.results[i].id,
 					};
 					recommendationArray.push(tempRecommendationObject);
-					// }
 				}
 			}
 
@@ -322,3 +314,43 @@ export default function IndividualMovie() {
 		</div>
 	);
 }
+
+// This gets called on every request
+export async function getServerSideProps(context) {
+	// Fetch data from external API
+	const [castInfoRes, movieInfoRes, recommendationsRes] = await Promise.all([
+		fetch(
+			'https://api.themoviedb.org/3/movie/' +
+				context.params.id +
+				'/credits?api_key=' +
+				`${process.env.NEXT_PUBLIC_API_KEY}` +
+				'&language=en-US'
+		),
+		fetch(
+			'https://api.themoviedb.org/3/movie/' +
+				context.params.id +
+				'?api_key=' +
+				`${process.env.NEXT_PUBLIC_API_KEY}` +
+				'&language=en-US&append_to_response=videos'
+		),
+		fetch(
+			'https://api.themoviedb.org/3/movie/' +
+				context.params.id +
+				'/recommendations?api_key=' +
+				`${process.env.NEXT_PUBLIC_API_KEY}` +
+				'&language=en-US&page=1'
+		),
+	]);
+	const [castInfoSSP, movieInfoSSP, recommendationsSSP] = await Promise.all([
+		castInfoRes.json(),
+		movieInfoRes.json(),
+		recommendationsRes.json(),
+	]);
+	// Pass data to the page via props
+	let updatedTmdbId = context.params.id;
+	return {
+		props: { castInfoSSP, movieInfoSSP, recommendationsSSP, updatedTmdbId },
+	};
+}
+
+export default IndividualMovie;

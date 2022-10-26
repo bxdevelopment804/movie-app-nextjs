@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NavBar from './Navbar';
 import Footer from './Footer';
-
 import Link from 'next/link';
 
 const axios = require('axios');
@@ -75,13 +74,13 @@ const Movies = () => {
 					// HERO MOVIE SECTION
 					// The below gets the ID of the latest movie, and generates a random movie for the hero section of the homepage.
 
-					var randomId = Math.floor(Math.random() * 20);
+					let randomId = Math.floor(Math.random() * 20);
 
 					if (
 						hero.results[randomId].poster_path !== null &&
 						hero.results[randomId].adult === false
 					) {
-						var tempHeroObject = {
+						let tempHeroObject = {
 							title: hero.results[randomId].title,
 							overview: hero.results[randomId].overview,
 							popularity: hero.results[randomId].popularity,
@@ -322,12 +321,12 @@ const Movies = () => {
 						<button
 							id='heroDetailsButton'
 							className='heroDetailItem'
-							onClick={() =>
+							onClick={() => {
 								router.push({
 									pathname: '/movies/[id]',
 									query: { id: heroMoviesObject.tmdbId },
-								})
-							}
+								});
+							}}
 						>
 							Details
 						</button>
