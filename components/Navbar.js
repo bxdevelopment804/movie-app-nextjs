@@ -7,14 +7,11 @@ const axios = require('axios');
 
 const NavBar = () => {
 	const [query, setQuery] = useState('');
-	const [userQuery, setUserQuery] = useState('');
-	const [resultsArray, setResultsArray] = useState([]);
 	const [searchResults, setSearchResults] = useContext(searchResultsContext);
 	const router = useRouter();
-	var delayTimer;
+	let delayTimer;
 
 	async function handleChange(enteredQuery) {
-		setUserQuery(enteredQuery);
 		setQuery(enteredQuery.replace(' ', '+').toLowerCase());
 		clearTimeout(delayTimer);
 
@@ -26,7 +23,6 @@ const NavBar = () => {
 						'&query=' +
 						enteredQuery
 				);
-				setResultsArray(searchResponse.data.results);
 				setSearchResults(searchResponse.data.results);
 			} catch (error) {
 				setSearchResults(['No Results Found']);
@@ -45,7 +41,6 @@ const NavBar = () => {
 					<input
 						id='searchInput'
 						type='text'
-						value={userQuery}
 						placeholder=''
 						onClick={() =>
 							router.push({

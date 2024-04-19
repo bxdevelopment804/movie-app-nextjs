@@ -346,7 +346,7 @@ export async function getServerSideProps(context) {
 		movieInfoRes.json(),
 		recommendationsRes.json(),
 	]);
-	// Pass data to the page via props
+	// Pass data to the page via props, TmdbId immediately used by useEffect
 	let updatedTmdbId = context.params.id;
 	return {
 		props: { castInfoSSP, movieInfoSSP, recommendationsSSP, updatedTmdbId },
