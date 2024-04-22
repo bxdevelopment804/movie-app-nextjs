@@ -234,7 +234,7 @@ $gradientBoxHeight: 80px;
 		justify-content: center;
 
 		#profileBlank {
-			height: 150px;
+			height: 165px;
 			background-color: white;
 		}
 		.headshot {
@@ -249,6 +249,11 @@ $gradientBoxHeight: 80px;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
+	}
+
+	#profileName {
+		min-height: 43.2px;
+		align-items: flex-start;
 	}
 }
 

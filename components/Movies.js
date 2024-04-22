@@ -28,7 +28,7 @@ const Movies = () => {
 		let endpoints = [
 			'https://api.themoviedb.org/3/discover/movie?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}` +
-				'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_cast=true&with_crew=true&with_watch_monetization_types=flatrate',
+				'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate',
 			'https://api.themoviedb.org/3/trending/movie/week?api_key=' +
 				`${process.env.NEXT_PUBLIC_API_KEY}`,
 			'https://api.themoviedb.org/3/movie/popular?api_key=' +
@@ -77,8 +77,8 @@ const Movies = () => {
 					let randomId = Math.floor(Math.random() * 20);
 
 					if (
-						hero.results[randomId].poster_path !== null &&
-						hero.results[randomId].adult === false
+						hero?.results[randomId]?.poster_path !== null &&
+						hero?.results[randomId]?.adult === false
 					) {
 						let tempHeroObject = {
 							title: hero.results[randomId].title,
